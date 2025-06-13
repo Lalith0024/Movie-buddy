@@ -17,6 +17,12 @@ function Home() {
         { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
         { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
         { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
+        { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
+        { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
+        { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
+        { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
+        { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
+        { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
     ];
 
     return (
@@ -28,7 +34,7 @@ function Home() {
                 </form>
                 <div className="movies-grid">
                     {movies.map((movie, index) => (
-                        <MovieCard movie={movie} key={index} />
+                       (movie.title.toLowerCase().startsWith(search) && <MovieCard movie={movie} key={index} />)
                     ))}
                 </div>
             </div>
