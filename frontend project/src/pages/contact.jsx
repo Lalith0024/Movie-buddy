@@ -15,7 +15,7 @@ function contact(){
             </form>
             <div className="contact-info">
                 <h3>Contact Information</h3>
-                <p>Email:</p>
+                <p>Email:kasulalalithendra@gmail.com</p>
             </div>
         </div>
 
