@@ -1,4 +1,5 @@
 import React from "react"
+import '../css/favourite.css'; // or './App.css' if not in subfolder
 
 function Favourite(){
     return (

@@ -1,5 +1,6 @@
 
 import React from "react";
+import '../css/contact.css'; // or './App.css' if not in subfolder
 function contact(){
     return (
         <>

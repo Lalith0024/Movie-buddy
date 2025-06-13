@@ -1,5 +1,6 @@
 import MovieCard from "../components/moviecard";
 import { useState } from 'react';
+import '../css/homepage.css'; // or './App.css' if not in subfolder
 
 function Home() {
     const [search, setSearch] = useState("");
