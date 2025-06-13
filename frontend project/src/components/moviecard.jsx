@@ -1,6 +1,6 @@
 import React from "react";
 
-function moviecard(){
+function moviecard({movie}){
     function onfav(){
         alert("Added to favourites");
     }
@@ -14,6 +14,10 @@ function moviecard(){
             </div>
 
         </div>
+    <div className="movie-info">
+        <h3>{movie.title}</h3>
+        <p></p>
+    </div>
 
     </div>
 
