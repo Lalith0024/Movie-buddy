@@ -1,36 +1,22 @@
-import React from 'react'
-import Navbar from './components/navbar'
-// import moviecard from './components/moviecard'
-// import './App.css'
-import Home from './pages/home'
-import Favourite from './pages/Favourites'
-// import {browserRouter} from 'react-router-dom'
-import { Routes, Route } from 'react-router-dom'
-// import './css/App.css'; // or './App.css' if not in subfolder
-
-import './css/App.css'; // or './App.css' if not in subfolder
+import "./css/App.css";
+import Favorites from "./pages/Favorites";
+import Home from "./pages/Home";
+import { Routes, Route } from "react-router-dom";
+import { MovieProvider } from "./contexts/MovieContext";
+import NavBar from "./components/NavBar";
 
 function App() {
-
-  
-
   return (
-    <>
-    <Navbar/>
-    <main className='main-content'>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/favourites' element={<Favourite />} />
-        <Route path='/contact' element={<contact />} />
-      </Routes>
-
-    
-    </main>
-      
-        
-    </>
-  )
-    
+    <MovieProvider>
+      <NavBar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </main>
+    </MovieProvider>
+  );
 }
 
-export default App
+export default App;

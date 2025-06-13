@@ -1,46 +1,76 @@
-import MovieCard from "../components/moviecard";
-import { useState } from 'react';
-import '../css/homepage.css'; // or './App.css' if not in subfolder
+import MovieCard from "../components/MovieCard";
+import { useState, useEffect } from "react";
+import { searchMovies, getPopularMovies } from "../services/api";
+import "../css/Home.css";
 
 function Home() {
-    const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const handlesearch = (e) => {
-        e.preventDefault();
-        
+  useEffect(() => {
+    const loadPopularMovies = async () => {
+      try {
+        const popularMovies = await getPopularMovies();
+        setMovies(popularMovies);
+      } catch (err) {
+        console.log(err);
+        setError("Failed to load movies...");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const changestate = (e) => {
-        setSearch(e.target.value);
-    };
+    loadPopularMovies();
+  }, []);
 
-    const movies = [
-        { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
-        { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
-        { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
-        { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
-        { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
-        { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
-        { title: "Movie 1", release_date: "2023-01-01", url: "https://example.com/movie1.jpg" },
-        { title: "Movie 2", release_date: "2023-02-01", url: "https://example.com/movie2.jpg" },
-        { title: "Movie 3", release_date: "2023-03-01", url: "https://example.com/movie3.jpg" },
-    ];
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return
+    if (loading) return
 
-    return (
-        <>
-            <div className="home">
-                <form onSubmit={handlesearch} className="search-form">
-                    <input type="text" placeholder="Search for movies..." value={search} onChange={changestate} />
-                    <button className="search-button">Search</button>
-                </form>
-                <div className="movies-grid">
-                    {movies.map((movie, index) => (
-                       (movie.title.toLowerCase().startsWith(search) && <MovieCard movie={movie} key={index} />)
-                    ))}
-                </div>
-            </div>
-        </>
-    );
+    setLoading(true)
+    try {
+        const searchResults = await searchMovies(searchQuery)
+        setMovies(searchResults)
+        setError(null)
+    } catch (err) {
+        console.log(err)
+        setError("Failed to search movies...")
+    } finally {
+        setLoading(false)
+    }
+  };
+
+  return (
+    <div className="home">
+      <form onSubmit={handleSearch} className="search-form">
+        <input
+          type="text"
+          placeholder="Search for movies..."
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="submit" className="search-button">
+          Search
+        </button>
+      </form>
+
+        {error && <div className="error-message">{error}</div>}
+
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="movies-grid">
+          {movies.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Home;
