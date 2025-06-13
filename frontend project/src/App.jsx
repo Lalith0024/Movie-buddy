@@ -14,13 +14,13 @@ function App() {
 
   return (
     <>
-    <Navbar></Navbar>
+    <Navbar/>
     <main className='main-content'>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/favourites' element={<Favourite />} />
+      </Routes>
 
-    <Routes>
-      <Route path='/' element = {<Home/>}></Route>
-      <Route path='/' element = {<Favourite/>}></Route>
-    </Routes>
     
     </main>
       
