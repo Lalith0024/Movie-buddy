@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 
-
+import React from 'react';
+import '../css/navbar.css'; // or './App.css' if not in subfolder
 function Navbar() {
   return (
     <nav className="navbar">

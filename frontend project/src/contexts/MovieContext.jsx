@@ -9,7 +9,9 @@ export const MovieProvider = ({ children }) => {
 
     useEffect(() => {
         const storedFavs = localStorage.getItem("favorites");
-        if (storedFavs) setFavorites(JSON.parse(storedFavs));
+        if (storedFavs) {
+            setFavorites(JSON.parse(storedFavs));
+        }
     }, []);
 
     useEffect(() => {
@@ -42,5 +44,10 @@ export const MovieProvider = ({ children }) => {
     );
 };
 
-// Step 3: Custom hook to use the context
-export const useMovieContext = () => useContext(MovieContext);
+// Step 3: Export the context itself (useful for manual use if needed)
+export { MovieContext };
+
+// Step 4: Custom hook to use the context
+export const useMovieContext = () => {
+    return useContext(MovieContext);
+};

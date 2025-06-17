@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../css/moviecard.css"; // or './App.css' if not in subfolder
 function moviecard({movie}){
     function onfav(){
         alert("Added to favourites");

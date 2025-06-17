@@ -1,5 +1,7 @@
-import "../css/app.css";
+// import "../css/app.css";
 import { useMovieContext } from "../contexts/MovieContext";
+import React from "react";
+import "../css/favourite.css"; // or './App.css' if not in subfolder
 
 import MovieCard from "../components/MovieCard";
 

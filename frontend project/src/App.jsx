@@ -1,6 +1,6 @@
-import "./css/App.css";
+// import "./css/App.css";
 import Favorites from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/pages/Favourites.jsx";
-import Home from "./pages/Home";
+import Home from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/pages/home.jsx";
 import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./contexts/MovieContext";
 import NavBar from "./components/NavBar";
