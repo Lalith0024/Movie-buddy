@@ -3,7 +3,7 @@ import { useMovieContext } from "../contexts/MovieContext";
 import React from "react";
 import "../css/favourite.css"; // or './App.css' if not in subfolder
 
-import MovieCard from "../components/MovieCard";
+import MovieCard from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/moviecard.jsx";
 
 function Favorites() {
   const { favorites } = useMovieContext();

@@ -1,27 +1,37 @@
-import {Link} from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../css/navbar.css";
 
-import React from 'react';
-import '../css/navbar.css'; // or './App.css' if not in subfolder
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <nav className="navbar">
-      <div className="navbar-container" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <Link to="/" className="navbar-logo">
-          MyApp
-        </Link>
-        <ul className="nav-menu">
-          <li className="nav-item">
-            <Link to="/" className="nav-links">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/about" className="nav-links">About</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/contact" className="nav-links">Contact</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="navbar-brand">
+          <span className="brand-main">Movie</span>
+          <span className="brand-buddy">Buddy</span>
+        </div>
+
+        <div
+          className={`hamburger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <div className="line"></div>
+          <div className="line"></div>
+          <div className="line"></div>
+        </div>
+
+        <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
+          <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link to="/favourites" className="nav-link" onClick={() => setMenuOpen(false)}>Favorites</Link>
+          <Link to="/contact" className="nav-link" onClick={() => setMenuOpen(false)}>Contact</Link>
+        </div>
+      </nav>
+
+      <div className="navbar-glow-line"></div>
+    </>
   );
 }
+
 export default Navbar;
