@@ -1,4 +1,4 @@
-import MovieCard from "../components/MovieCard";
+import MovieCard from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/moviecard.jsx";
 import { useState, useEffect } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 // import "../css/App.css";
