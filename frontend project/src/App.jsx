@@ -4,6 +4,7 @@ import Home from "/Users/kasulalalithendra/Desktop/react project/frontend projec
 import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./contexts/MovieContext";
 import NavBar from "./components/NavBar";
+import Contact from "./pages/contact";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/contact" element={<div>Contact Page</div>} />
         </Routes>
       </main>
     </MovieProvider>
