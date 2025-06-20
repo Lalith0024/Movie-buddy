@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 // import "../css/App.css";
 import "../css/homepage.css"; // or './App.css' if not in subfolder
+import Navbar from "../components/NavBar";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,6 +46,8 @@ function Home() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="home">
       <form onSubmit={handleSearch} className="search-form">
         <input
@@ -71,6 +74,7 @@ function Home() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

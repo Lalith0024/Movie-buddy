@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/App.css"; // using App.css directly as requested
+import Navbar from "../components/NavBar";
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,6 +19,8 @@ function Contact() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="contact-page">
       <h2>Contact Us</h2>
       <p>If you have any questions or feedback, feel free to reach out!</p>
@@ -38,6 +41,7 @@ function Contact() {
         <p>Email: kasulalalithendra@gmail.com</p>
       </div>
     </div>
+    </>
   );
 }
 
