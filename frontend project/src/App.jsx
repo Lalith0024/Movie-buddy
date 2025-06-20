@@ -19,7 +19,7 @@ function App() {
             path="/home"
             element={
               <>
-                <NavBar />
+                {/* <NavBar /> */}
                 <Home />
               </>
             }
@@ -28,7 +28,7 @@ function App() {
             path="/favorites"
             element={
               <>
-                <NavBar />
+                {/* <NavBar /> */}
                 <Favorites />
               </>
             }
@@ -37,7 +37,7 @@ function App() {
             path="/contact"
             element={
               <>
-                <NavBar />
+                {/* <NavBar /> */}
                 <Contact />
               </>
             }

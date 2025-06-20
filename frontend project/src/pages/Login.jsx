@@ -1,9 +1,6 @@
-// Login.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-// import jwt_decode from "jwt-decode";
 import "../css/login.css";
 
 function Login() {
@@ -29,7 +26,10 @@ function Login() {
     const storedUser = localStorage.getItem("registeredUser");
     const storedPass = localStorage.getItem("registeredPass");
 
-    if (username === storedUser && password === storedPass) {
+    if (
+      (username === storedUser && password === storedPass) ||
+      (username === "guest@123" && password === "123")
+    ) {
       alert("Login successful!");
       navigate("/home");
     } else {
@@ -38,12 +38,17 @@ function Login() {
   };
 
   const handleGuestLogin = () => {
-    alert("Logged in as Guest!");
-    navigate("/home");
+    setUsername("guest@123");
+    setPassword("123");
+    setTermsChecked(true);
+    setTimeout(() => {
+      document.querySelector("form").requestSubmit(); // auto-submit after fill
+    }, 300);
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
+      const { default: jwt_decode } = await import("jwt-decode");
       const decoded = jwt_decode(credentialResponse.credential);
       console.log("Google User:", decoded);
       localStorage.setItem("googleUser", JSON.stringify(decoded));
@@ -61,6 +66,7 @@ function Login() {
         <form className="login-form" onSubmit={handleLogin}>
           <h2>Welcome Back</h2>
           {error && <p className="error-text">{error}</p>}
+
           <input
             type="text"
             placeholder="Username"
@@ -69,6 +75,7 @@ function Login() {
             className={error ? "error-border" : ""}
             required
           />
+
           <input
             type="password"
             placeholder="Password"
@@ -77,6 +84,7 @@ function Login() {
             className={error ? "error-border" : ""}
             required
           />
+
           <label className="terms">
             <input
               type="checkbox"
@@ -88,19 +96,17 @@ function Login() {
 
           <button type="submit">Login</button>
 
-          <div className="social-login">
+          <div className="separator">— OR —</div>
+
+          <div className="auth-buttons">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => alert("Google login failed")}
             />
+            <div className="guest-button" onClick={handleGuestLogin}>
+              Continue as Guest
+            </div>
           </div>
-
-          <p className="guest-text">
-            or continue as{" "}
-            <span className="guest-link" onClick={handleGuestLogin}>
-              Guest
-            </span>
-          </p>
 
           <p className="register-text">
             Don’t have an account?{" "}
