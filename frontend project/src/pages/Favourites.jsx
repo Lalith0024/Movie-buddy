@@ -2,7 +2,7 @@
 import { useMovieContext } from "../contexts/MovieContext";
 import React from "react";
 import "../css/favourite.css"; // or './App.css' if not in subfolder
-import Navbar from "../components/NavBar";
+import Navbar from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/navbar.jsx";
 
 import MovieCard from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/moviecard.jsx";
 // import Navbar from "../components/NavBar";
