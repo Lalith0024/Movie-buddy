@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
-import "../style/register.css";
+// import {jwt_decode} from "jwt-decode";
+// import jwt_decode from "jwt-decode";
+import * as jwt_decode from "jwt-decode";
+
+import "/Users/kasulalalithendra/Desktop/react project/frontend project/src/css/Register.css";
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -41,7 +44,8 @@ const Register = () => {
 
   const handleGoogleSuccess = (response) => {
     try {
-      const decoded = jwt_decode(response.credential);
+      // const decoded = jwt_decode(response.credential);
+      const decoded = jwt_decode.default(response.credential);
       console.log("Google User:", decoded);
       localStorage.setItem("googleUser", JSON.stringify(decoded));
       navigate("/home");
