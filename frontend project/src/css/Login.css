@@ -22,7 +22,10 @@ html, body, #root {
 .login-left {
   position: relative;
   flex: 1;
-  background: url("/Users/kasulalalithendra/Desktop/react project/frontend project/src/Screenshot 2025-06-20 at 8.52.44 AM.png") no-repeat center center;
+  /* background: url("/Users/kasulalalithendra/Desktop/react project/frontend project/src/Screenshot 2025-06-20 at 8.52.44 AM.png") no-repeat center center; */
+
+  background: url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1350&q=80")
+   no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center;

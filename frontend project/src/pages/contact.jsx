@@ -1,101 +1,63 @@
 import React, { useState } from "react";
-import Navbar from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/navbar.jsx";
-import "/Users/kasulalalithendra/Desktop/react project/frontend project/src/css/contact.css";
-
-const contactNodes = [
-  {
-    id: "email",
-    label: "Email",
-    icon: "✉️",
-    description: "kasulalalithendra@gmail.com",
-    action: () => window.location.href = "mailto:kasulalalithendra@gmail.com",
-  },
-  {
-    id: "phone",
-    label: "Phone",
-    icon: "📞",
-    description: "+1 (234) 567-890",
-    action: () => window.location.href = "tel:+1234567890",
-  },
-];
-
-// Social cube faces with icons & links
-const socials = [
-  {
-    id: "twitter",
-    icon: "🐦",
-    label: "Twitter",
-    url: "https://twitter.com/yourprofile",
-  },
-  {
-    id: "linkedin",
-    icon: "💼",
-    label: "LinkedIn",
-    url: "https://linkedin.com/in/yourprofile",
-  },
-  {
-    id: "github",
-    icon: "🐙",
-    label: "GitHub",
-    url: "https://github.com/yourprofile",
-  },
-  {
-    id: "facebook",
-    icon: "📘",
-    label: "Facebook",
-    url: "https://facebook.com/yourprofile",
-  },
-];
+import Navbar from "../components/navbar.jsx";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import "../css/contact.css";
+import { FaLinkedin, FaTwitter, FaPhone, FaEnvelope, FaGithub, FaFileAlt } from "react-icons/fa";
+import { SiLeetcode, SiCodeforces } from "react-icons/si";
 
 export default function Contact() {
-  const [modalOpen, setModalOpen] = useState(null);
-  const [consentOpen, setConsentOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "Let's work together, Lalith!",
+  });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [showPhonePopup, setShowPhonePopup] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const openModal = (id) => setModalOpen(id);
-  const closeModal = () => setModalOpen(null);
-
-  // Form handlers
   const validate = () => {
     const errs = {};
     if (!formData.name.trim()) errs.name = "Name is required";
     if (!formData.email.trim()) errs.email = "Email is required";
-    else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
-    )
-      errs.email = "Invalid email format";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) errs.email = "Invalid email";
     if (!formData.message.trim()) errs.message = "Message is required";
     return errs;
   };
 
   const handleChange = (e) => {
-    setFormData((f) => ({ ...f, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setErrors({});
   };
 
-  // When user clicks Send, open consent modal instead of directly sending mail
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setConsentOpen(true);
+    try {
+      await addDoc(collection(db, "contacts"), formData);
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "Let's work together, Lalith!" });
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (error) {
+      console.error("Error saving message to Firebase:", error);
+    }
   };
 
-  // If user consents, open mailto and reset form
-  const sendMail = () => {
-    const mailtoLink = `mailto:kasulalalithendra@gmail.com?subject=Message from ${encodeURIComponent(
-      formData.name
-    )}&body=${encodeURIComponent(formData.message + "\n\nFrom: " + formData.email)}`;
-    window.location.href = mailtoLink;
-    setConsentOpen(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 4000);
+  const handleRedirect = (choice) => {
+    if (choice === "yes") {
+      window.location.href = `mailto:kasulalalithendra@gmail.com`;
+    }
+  };
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText("9966965379");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -104,9 +66,7 @@ export default function Contact() {
       <main className="contact-page">
         <section className="contact-form-section">
           <h2>Get In Touch</h2>
-          <p className="subtitle">
-            Have questions or feedback? Send us a message below and we'll reply as soon as possible.
-          </p>
+          <p className="subtitle">Have questions or feedback? Send a message below.</p>
           <form className="contact-form" onSubmit={handleSubmit} noValidate>
             <label>
               Name
@@ -117,16 +77,9 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 className={errors.name ? "input-error" : ""}
-                aria-invalid={errors.name ? "true" : "false"}
-                aria-describedby="name-error"
-                required
               />
             </label>
-            {errors.name && (
-              <div className="error-message" id="name-error">
-                {errors.name}
-              </div>
-            )}
+            {errors.name && <div className="error-message">{errors.name}</div>}
 
             <label>
               Email
@@ -137,16 +90,9 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 className={errors.email ? "input-error" : ""}
-                aria-invalid={errors.email ? "true" : "false"}
-                aria-describedby="email-error"
-                required
               />
             </label>
-            {errors.email && (
-              <div className="error-message" id="email-error">
-                {errors.email}
-              </div>
-            )}
+            {errors.email && <div className="error-message">{errors.email}</div>}
 
             <label>
               Message
@@ -157,200 +103,62 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 className={errors.message ? "input-error" : ""}
-                aria-invalid={errors.message ? "true" : "false"}
-                aria-describedby="message-error"
-                required
               />
             </label>
-            {errors.message && (
-              <div className="error-message" id="message-error">
-                {errors.message}
+            {errors.message && <div className="error-message">{errors.message}</div>}
+
+            <button type="submit">Send Message</button>
+            {submitted && (
+              <div className="firebase-popup">
+                ✅ Thank you! Appreciate your feedback.<br />
+                <p>Would you like to contact Lalith directly?</p>
+                <div className="redirect-options">
+                  <button type="button" onClick={() => handleRedirect("yes")}>Contact Lalith</button>
+                  <button type="button" onClick={() => handleRedirect("no")}>No Thanks</button>
+                </div>
               </div>
             )}
-
-            <button type="submit" aria-live="polite">
-              Send Message
-            </button>
-
-            {submitted && <p className="submit-success">Message sent! Check your email.</p>}
           </form>
         </section>
 
-        <section className="contact-orbital-section" aria-label="Contact Methods">
-          <h2 className="sr-only">Contact Methods</h2>
-          <Orbital nodes={contactNodes} onNodeClick={openModal} />
-          <SocialCube socials={socials} />
+        <section className="contact-orbital-section">
+          <div className="orbital-container animated-orbit">
+            <div className="orbital-center-tex">Let's Connect & Collaborate</div>
+
+            <div className="orbital-node" title="Phone" onClick={() => setShowPhonePopup(true)}><FaPhone /></div>
+            <div className="orbital-node" title="Email" onClick={() => window.location.href = "mailto:kasulalalithendra@gmail.com"}><FaEnvelope /></div>
+            <div className="orbital-node" title="LinkedIn" onClick={() => window.open("https://www.linkedin.com/in/lalithendra-kasula-1b90b7323/", "_blank")}><FaLinkedin /></div>
+            <div className="orbital-node" title="Twitter" onClick={() => window.open("https://x.com", "_blank")}><FaTwitter /></div>
+
+            {showPhonePopup && (
+              <div className="phone-popup">
+                <p><strong>📞 Contact Number</strong><br />9966965379</p>
+                <div className="popup-buttons">
+                  <button onClick={handleCopyPhone}>{copied ? "Copied!" : "Copy"}</button>
+                  <button onClick={() => setShowPhonePopup(false)}>Close</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="rotating-cube-container">
+            <div className="rotating-cube">
+              <a href="https://github.com/Lalith0024" target="_blank" rel="noreferrer" className="rotating-face" title="GitHub">
+                <FaGithub size={36} /> GitHub
+              </a>
+              <a href="https://leetcode.com/u/Kasula_0024/" target="_blank" rel="noreferrer" className="rotating-face" title="LeetCode">
+                <SiLeetcode size={36} /> LeetCode
+              </a>
+              <a href="https://example.com/resume.pdf" target="_blank" rel="noreferrer" className="rotating-face" title="Resume">
+                <FaFileAlt size={36} /> Resume
+              </a>
+              <a href="https://codeforces.com/profile/lalith123000" target="_blank" rel="noreferrer" className="rotating-face" title="Codeforces">
+                <SiCodeforces size={36} /> Codeforces
+              </a>
+            </div>
+          </div>
         </section>
-
-        {modalOpen && (
-          <ContactModal
-            node={contactNodes.find((n) => n.id === modalOpen)}
-            onClose={closeModal}
-          />
-        )}
-
-        {consentOpen && (
-          <ConsentModal
-            onConfirm={sendMail}
-            onCancel={() => setConsentOpen(false)}
-          />
-        )}
       </main>
     </>
-  );
-}
-
-function Orbital({ nodes, onNodeClick }) {
-  return (
-    <div className="orbital-container" aria-hidden="true">
-      <div className="orbital-sphere" aria-label="Contact options sphere">
-        {nodes.map((node, i) => {
-          const angle = (360 / nodes.length) * i;
-          const style = {
-            transform: `rotate(${angle}deg) translate(140px) rotate(-${angle}deg)`,
-          };
-          return (
-            <button
-              key={node.id}
-              className="orbital-node"
-              style={style}
-              onClick={() => onNodeClick(node.id)}
-              aria-label={`Contact via ${node.label}`}
-              type="button"
-            >
-              <span className="node-icon" aria-hidden="true">
-                {node.icon}
-              </span>
-              <span className="node-label">{node.label}</span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// New: Social Cube — rotating cube with social icons & flipping faces
-function SocialCube({ socials }) {
-  return (
-    <div className="social-cube-container" aria-label="Social media links">
-      <div className="social-cube">
-        {socials.map((social) => (
-          <a
-            key={social.id}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`cube-face face-${social.id}`}
-            aria-label={`Visit ${social.label}`}
-            tabIndex={0}
-          >
-            <span className="social-icon">{social.icon}</span>
-            <span className="social-label">{social.label}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ContactModal({ node, onClose }) {
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
-  };
-
-  return (
-    <div
-      className="contact-modal-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      tabIndex={-1}
-      onClick={onClose}
-      onKeyDown={(e) => e.key === "Escape" && onClose()}
-    >
-      <div
-        className="contact-modal"
-        onClick={(e) => e.stopPropagation()}
-        role="document"
-      >
-        <button
-          className="modal-close-btn"
-          aria-label="Close contact modal"
-          onClick={onClose}
-        >
-          ✖
-        </button>
-        <h2 id="modal-title">{node.label}</h2>
-
-        <div className="contact-info-modal">
-          <p className="contact-desc">{node.description}</p>
-          <div className="modal-buttons">
-            {node.action && (
-              <button
-                onClick={node.action}
-                className="modal-action-btn"
-                aria-label={`Open ${node.label} link`}
-              >
-                Open {node.label}
-              </button>
-            )}
-            <button
-              onClick={() => copyToClipboard(node.description)}
-              className="modal-copy-btn"
-              aria-label={`Copy ${node.label} to clipboard`}
-            >
-              Copy
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Consent modal before opening mail client
-function ConsentModal({ onConfirm, onCancel }) {
-  return (
-    <div
-      className="contact-modal-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="consent-modal-title"
-      tabIndex={-1}
-      onClick={onCancel}
-      onKeyDown={(e) => e.key === "Escape" && onCancel()}
-    >
-      <div
-        className="contact-modal"
-        onClick={(e) => e.stopPropagation()}
-        role="document"
-      >
-        <h2 id="consent-modal-title" style={{ color: "#ff6f00" }}>
-          Confirm Sending Email
-        </h2>
-        <p>
-          Your message is ready to send. This will open your email client. Do you
-          want to proceed?
-        </p>
-        <div className="modal-buttons">
-          <button
-            onClick={onConfirm}
-            className="modal-action-btn"
-            aria-label="Confirm sending email"
-          >
-            Yes, open email client
-          </button>
-          <button
-            onClick={onCancel}
-            className="modal-copy-btn"
-            aria-label="Cancel sending email"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }

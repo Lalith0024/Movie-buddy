@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import "../css/login.css";
+import * as jwt_decode from "jwt-decode";
+import "../css/Register.css"; // Reuse Register styles
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [termsChecked, setTermsChecked] = useState(false);
   const [error, setError] = useState("");
+  const [showGuestPopup, setShowGuestPopup] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -30,7 +33,6 @@ function Login() {
       (username === storedUser && password === storedPass) ||
       (username === "guest@123" && password === "123")
     ) {
-      alert("Login successful!");
       navigate("/home");
     } else {
       setError("Invalid credentials. Try registering first.");
@@ -41,18 +43,17 @@ function Login() {
     setUsername("guest@123");
     setPassword("123");
     setTermsChecked(true);
+    setShowGuestPopup(true);
     setTimeout(() => {
-      document.querySelector("form").requestSubmit(); // auto-submit after fill
-    }, 300);
+      setShowGuestPopup(false);
+      document.querySelector("form").requestSubmit();
+    }, 1500);
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleSuccess = (response) => {
     try {
-      const { default: jwt_decode } = await import("jwt-decode");
-      const decoded = jwt_decode(credentialResponse.credential);
-      console.log("Google User:", decoded);
+      const decoded = jwt_decode.default(response.credential);
       localStorage.setItem("googleUser", JSON.stringify(decoded));
-      alert("Google Login Success!");
       navigate("/home");
     } catch (err) {
       console.error("Google login decode failed", err);
@@ -60,62 +61,64 @@ function Login() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-left" />
-      <div className="login-right">
-        <form className="login-form" onSubmit={handleLogin}>
-          <h2>Welcome Back</h2>
-          {error && <p className="error-text">{error}</p>}
+    <div className="register-page">
+      <div className="bg-img" />
+      <form className="register-form" onSubmit={handleLogin}>
+        <h2>Welcome back!</h2>
 
+        {error && <p className="error-text">{error}</p>}
+
+        <div className="input-box">
+          <label>Username</label>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Enter your username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className={error ? "error-border" : ""}
-            required
           />
+        </div>
 
+        <div className="input-box">
+          <label>Password</label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={error ? "error-border" : ""}
-            required
           />
+        </div>
 
-          <label className="terms">
-            <input
-              type="checkbox"
-              checked={termsChecked}
-              onChange={() => setTermsChecked(!termsChecked)}
-            />
-            I accept the Terms and Conditions
-          </label>
+        <div className="terms-box">
+          <input
+            type="checkbox"
+            checked={termsChecked}
+            onChange={() => setTermsChecked(!termsChecked)}
+          />
+          <label>I accept Terms & Conditions</label>
+        </div>
 
-          <button type="submit">Login</button>
+        <button type="submit">Login</button>
 
-          <div className="separator">— OR —</div>
+        <div className="separator">or</div>
 
-          <div className="auth-buttons">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={() => alert("Google login failed")}
-            />
-            <div className="guest-button" onClick={handleGuestLogin}>
-              Continue as Guest
-            </div>
+        <div className="auth-buttons">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => alert("Google login failed")}
+          />
+          <div className="guest-button" onClick={handleGuestLogin}>
+            Continue as Guest
           </div>
+        </div>
 
-          <p className="register-text">
-            Don’t have an account?{" "}
-            <Link to="/register" className="register-link">
-              Register
-            </Link>
-          </p>
-        </form>
-      </div>
+        <p className="login-link">
+          Don’t have an account? <Link to="/register">Register</Link>
+        </p>
+      </form>
+
+      {showGuestPopup && (
+        <div className="popup-message">🎉 Guest Login Activated! Redirecting...</div>
+      )}
     </div>
   );
 }
