@@ -24,7 +24,15 @@ function Navbar() {
 
         <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
           <Link to="/home" className="nav-link" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link to="/Favourites" className="nav-link" onClick={() => setMenuOpen(false)}>Favorites</Link>
+          {/* <Link to="/Favourites" className="nav-link" onClick={() => setMenuOpen(false)}>Favorites</Link>
+           */}
+           {/* <Link to="/Favourites" className="nav-link">Favorites</Link>
+            */}
+            <Link to="/Favorites" className="nav-link" onClick={() => setMenuOpen(false)}>
+  Favorites
+</Link>
+
+
           {/* <Link to="/contact" className="nav-link" onClick={() => setMenuOpen(false)}>Contact</Link> */}
           <Link to="/contact" className="nav-link" onClick={() => setMenuOpen(false)}>Contact</Link>
         </div>

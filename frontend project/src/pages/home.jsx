@@ -1,6 +1,6 @@
 // src/pages/home.jsx
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api";
+import { searchMovies, getPopularMovies } from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/services/api.js";
 import "../css/homepage.css";
 import Navbar from "../components/navbar";  // ✅ lowercase file name
 import MovieCard from "../components/moviecard";  // ✅ relative path, lowercase
@@ -23,6 +23,7 @@ function Home() {
         setLoading(false);
       }
     };
+    console.log("Using API:", getPopularMovies.toString());
 
     loadPopularMovies();
   }, []);

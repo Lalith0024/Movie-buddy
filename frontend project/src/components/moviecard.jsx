@@ -1,17 +1,22 @@
+// src/components/moviecard.jsx
+
 import React from "react";
+import { useMovieContext } from "../contexts/MovieContext";
 import "../css/moviecard.css";
 
 function MovieCard({ movie }) {
-  const baseImgUrl = "https://image.tmdb.org/t/p/w500";
+  const { addToFavorites, removeFromFavorites, isFavorite } = useMovieContext();
+
   const fallbackImg = "https://via.placeholder.com/300x450?text=No+Image";
+  const imageUrl = movie.poster_path || fallbackImg;
 
-  const imageUrl = movie.poster_path
-    ? `${baseImgUrl}${movie.poster_path}`
-    : fallbackImg;
-
-  function onfav() {
-    alert("Added to favourites");
-  }
+  const handleFavClick = () => {
+    if (isFavorite(movie.id)) {
+      removeFromFavorites(movie.id);
+    } else {
+      addToFavorites(movie);
+    }
+  };
 
   return (
     <div className="movie-card">
@@ -19,8 +24,8 @@ function MovieCard({ movie }) {
         <img src={imageUrl} alt={movie.title || "No Title"} />
 
         <div className="movie-overlay">
-          <button className="favourite-btn" onClick={onfav}>
-            ♡
+          <button className="favourite-btn" onClick={handleFavClick}>
+            {isFavorite(movie.id) ? "❤️" : "♡"}
           </button>
         </div>
       </div>
