@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import "../css/Register.css"; // Reuse Register styles
 
 function Login() {
@@ -52,7 +52,7 @@ function Login() {
 
   const handleGoogleSuccess = (response) => {
     try {
-      const decoded = jwt_decode.default(response.credential);
+      const decoded = jwtDecode(response.credential);
       localStorage.setItem("googleUser", JSON.stringify(decoded));
       navigate("/home");
     } catch (err) {

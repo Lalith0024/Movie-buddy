@@ -1,416 +1,313 @@
-/* === Contact Page Root === */
+/* === ENHANCED PROFESSIONAL CONTACT PAGE RESPONSIVE CSS === */
+
 .contact-page {
   display: flex;
   flex-wrap: wrap;
-  min-height: calc(100vh - 72px);
-  color: #eee;
-  font-family: 'Inter', sans-serif;
-  background: #121212;
-  padding: 3rem 2rem;
   gap: 4rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
+  background: var(--background-dark);
+  color: var(--text-primary);
+  font-family: inherit;
+  padding: 4rem 3rem;
+  box-sizing: border-box;
   user-select: none;
+  margin: 0;
 }
 
-/* === Contact Form Section === */
 .contact-form-section {
   flex: 1 1 400px;
-  max-width: 480px;
-  padding-left: 50px;
+  max-width: 520px;
+  padding: 2rem 3rem;
+  background: var(--background-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 0 30px rgba(255, 111, 0, 0.1);
 }
 
 .contact-form-section h2 {
-  font-size: 2.4rem;
-  margin-bottom: 0.2rem;
-  color: #ff6f00;
-  user-select: none;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  letter-spacing: 1px;
 }
 
 .subtitle {
-  margin-bottom: 2rem;
-  font-weight: 400;
   font-size: 1.1rem;
-  color: #aaa;
-  user-select: none;
+  margin-bottom: 2.5rem;
+  color: var(--text-secondary);
+  font-weight: 400;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
-  user-select: text;
+  gap: 1.5rem;
 }
 
 .contact-form label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #ff9a0033;
   display: flex;
   flex-direction: column;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffa042aa;
   gap: 0.3rem;
 }
 
 .contact-form input,
 .contact-form textarea {
-  background-color: #222;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  padding: 0.8rem 1rem;
+  background: var(--background-light);
+  color: var(--text-primary);
+  padding: 0.9rem 1.2rem;
   font-size: 1rem;
-  color: #eee;
-  resize: vertical;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #ff6f00cc;
-  box-shadow: 0 0 14px #ff6f0077;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
   outline: none;
 }
 
 .input-error {
-  border-color: #ff4c4c !important;
-  box-shadow: 0 0 12px #ff4c4ccc !important;
+  border-color: #ff4c4c;
+  box-shadow: 0 0 10px #ff4c4c88;
 }
 
 .error-message {
-  color: #ff4c4c;
   font-size: 0.85rem;
-  font-weight: 600;
+  color: #ff4c4c;
+  font-weight: 500;
   margin-top: -0.8rem;
   margin-bottom: 0.4rem;
 }
 
 .contact-form button {
-  background: #ff6f00;
-  color: #121212;
-  font-weight: 700;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
   padding: 1rem;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
-  box-shadow: 0 0 20px #ff6f0055;
-}
-
-.contact-form button:hover,
-.contact-form button:focus-visible {
-  background-color: #ffa042;
-  box-shadow: 0 0 40px #ffa042aa;
-}
-
-.firebase-popup {
-  background-color: #ff6f00;
+  font-size: 1.1rem;
+  background: var(--gradient-primary);
   color: white;
-  font-weight: bold;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+.contact-form button:hover {
+  background: #ffa042;
+  box-shadow: 0 0 30px #ffa042aa;
+}
+
+.success-popup {
+  background: #ff6f00;
+  color: white;
+  padding: 1.2rem;
+  border-radius: 12px;
   box-shadow: 0 0 15px #ff6f00aa;
+  margin-top: 1.2rem;
+  animation: fadeIn 0.4s ease-in;
   text-align: center;
-  animation: fadeInScale 0.5s ease;
+  font-size: 0.95rem;
 }
 
-@keyframes fadeInScale {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* === Orbital Section Updated === */
+.redirect-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.redirect-options button {
+  background: #fff;
+  color: #121212;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.redirect-options button:hover {
+  background: #ffa042;
+  color: #121212;
+}
+
+/* === ORBITAL SECTION === */
 .contact-orbital-section {
-  flex: 1 1 400px;
+  flex: 1 1 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  user-select: none;
-  position: relative;
+  gap: 2.5rem;
+  padding: 2rem;
 }
 
 .orbital-container {
-  width: 380px;
-  height: 380px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #222 30%, #111 90%);
-  box-shadow: 0 0 60px #ff6f00bb inset, 0 0 12px #ff6f0066;
+  background: radial-gradient(circle, #222 30%, #111 90%);
+  box-shadow: 0 0 50px #ff6f00bb inset, 0 0 15px #ff6f0066;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  margin-bottom: 80px;
-  margin-top: 80px;
-  padding: 20px;
-
-
 }
+
 .orbital-center-tex {
-    position: absolute;
-    color: #ffa042;
-    font-size: 0.95rem;
-    font-weight: bold;
-    text-align: center;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    /* background: #121212; */
-    /* box-shadow: 0 0 10px #ff6f00aa; */
-    z-index: 1;
-    max-width: 180px;
-}
-
-.orbital-label {
-  color: #ff6f00;
-  font-size: 0.95rem;
-  font-weight: bold;
-  text-align: center;
   position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
+  text-align: center;
+  color: #ffa042;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem;
+  max-width: 200px;
+  z-index: 2;
 }
 
 .orbital-node {
-  position: absolute;
-  width: 90px;
-  height: 90px;
+  width: 75px;
+  height: 75px;
+  background: #ff6f00cc;
   border-radius: 50%;
-  background: #ff6f00dd;
-  color: #121212;
+  position: absolute;
   display: flex;
-  justify-content: center;
   align-items: center;
-  cursor: pointer;
+  justify-content: center;
+  color: #121212;
   font-size: 1.5rem;
   box-shadow: 0 0 10px #ff6f00cc, 0 0 20px #ff6f0055 inset;
-  transition: transform 0.4s ease, background-color 0.4s ease;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
 }
 
 .orbital-node:hover {
-  transform: scale(1.25);
-  background-color: #ffa042;
+  transform: scale(1.2);
+  background: #ffa042;
 }
 
+.orbital-node:nth-child(2) { top: 0; left: 50%; transform: translate(-50%, 0); }
+.orbital-node:nth-child(3) { top: 50%; right: 0; transform: translate(0, -50%); }
+.orbital-node:nth-child(4) { bottom: 0; left: 50%; transform: translate(-50%, 0); }
+.orbital-node:nth-child(5) { top: 50%; left: 0; transform: translate(0, -50%); }
 
-.orbital-node[data-id="phone"]   { top: 0; left: 50%; transform: translate(-50%, 0); }
-.orbital-node[data-id="email"]   { right: 0; top: 50%; transform: translate(0, -50%); }
-.orbital-node[data-id="linkedin"]{ bottom: 0; left: 50%; transform: translate(-50%, 0); }
-.orbital-node[data-id="twitter"] { left: 0; top: 50%; transform: translate(0, -50%); }
-
-/* === CUBE STYLE BELOW === */
+/* === CUBE === */
 .rotating-cube-container {
   width: 150px;
   height: 150px;
   perspective: 1000px;
-  margin-top: 1rem;
 }
 
 .rotating-cube {
   width: 100%;
   height: 100%;
-  position: relative;
   transform-style: preserve-3d;
-  animation: spinCube 8s linear infinite;
+  animation: cubeSpin 8s infinite linear;
+  position: relative;
 }
 
 .rotating-cube:hover {
   animation-play-state: paused;
 }
 
-.rotating-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: rgba(255, 111, 0, 0.08);
-  border: 2px solid #ff6f00cc;
-  box-shadow: 0 0 10px #ff6f00aa inset;
-  color: #ff6f00;
-  font-weight: bold;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.rotating-face:hover {
-  background-color: #ff6f00;
-  color: #121212;
-}
-
-.rotating-face:nth-child(1) { transform: rotateY(0deg) translateZ(79px); }
-.rotating-face:nth-child(2) { transform: rotateY(90deg) translateZ(79px); }
-.rotating-face:nth-child(3) { transform: rotateY(180deg) translateZ(79px); }
-.rotating-face:nth-child(4) { transform: rotateY(-90deg) translateZ(79px); }
-
-@keyframes spinCube {
-  from { transform: rotateY(0deg); }
+@keyframes cubeSpin {
+  from { transform: rotateY(0); }
   to { transform: rotateY(360deg); }
 }
 
-/* === ORBITAL CENTER TEXT === */
-.orbital-container {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #222 30%, #111 90%);
-  box-shadow: 0 0 60px #ff6f00bb inset, 0 0 12px #ff6f0066;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.orbital-center-text {
+.rotating-face {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  color: #ffa042;
-  font-size: 0.95rem;
+  background: rgba(255, 111, 0, 0.1);
+  border: 2px solid #ff6f00aa;
+  border-radius: 12px;
+  color: #ff6f00;
   font-weight: bold;
-  text-align: center;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  background: #121212;
-  box-shadow: 0 0 10px #ff6f00aa;
-  z-index: 1;
-  max-width: 180px;
-}
-
-.orbital-node {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: #ff6f00dd;
-  color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-size: 1.5rem;
-  box-shadow: 0 0 10px #ff6f00cc, 0 0 20px #ff6f0055 inset;
-  transition: transform 0.4s ease, background-color 0.4s ease;
+  transition: all 0.3s;
+  text-decoration: none;
 }
 
-.orbital-node:hover {
-  transform: scale(1.25);
-  background-color: #ffa042;
+.rotating-face:hover {
+  background: #ff6f00;
+  color: #121212;
 }
 
-/* Circle layout */
-.orbital-node:nth-child(2) { top: 0; left: 50%; transform: translate(-50%, 0); }
-.orbital-node:nth-child(3) { right: 0; top: 50%; transform: translate(0, -50%); }
-.orbital-node:nth-child(4) { bottom: 0; left: 50%; transform: translate(-50%, 0); }
-.orbital-node:nth-child(5) { left: 0; top: 50%; transform: translate(0, -50%); }
+.rotating-face:nth-child(1) { transform: rotateY(0deg) translateZ(75px); }
+.rotating-face:nth-child(2) { transform: rotateY(90deg) translateZ(75px); }
+.rotating-face:nth-child(3) { transform: rotateY(180deg) translateZ(75px); }
+.rotating-face:nth-child(4) { transform: rotateY(270deg) translateZ(75px); }
 
-/* Mobile responsive for rotating cube */
-@media (max-width: 868px) {
-  .contact-page {
-    flex-direction: column;
-    padding: 2rem 1rem;
-    gap: 3rem;
-  }
-
-  .contact-form-section,
-  .contact-orbital-section {
-    padding: 0;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .contact-form {
-    gap: 1.2rem;
-  }
-
-  .contact-form button {
-    width: 100%;
-  }
-  
-
-  .rotating-cube-container {
-    width: 120px;
-    height: 120px;
-  }
-
-  .rotating-face {
-    font-size: 0.8rem;
-    padding: 0.5rem;
-  }
-}
 /* === PHONE POPUP === */
 .phone-popup {
   position: absolute;
-  bottom: -80px;
-  background-color: #222;
-  color: #ffa042;
+  bottom: -100px;
+  background: #222;
   border: 2px solid #ff6f00;
   padding: 1rem;
-  border-radius: 12px;
+  color: #ffa042;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  width: 240px;
   box-shadow: 0 0 20px #ff6f0066;
-  animation: fadeInScale 0.4s ease-in-out;
-  z-index: 10;
-  text-align: center;
-  font-size: 0.95rem;
-  width: 220px;
 }
 
 .popup-buttons {
-  margin-top: 0.5rem;
   display: flex;
-  justify-content: center;
-  gap: 0.8rem;
+  justify-content: space-between;
+  margin-top: 0.8rem;
 }
 
 .popup-buttons button {
-  background-color: #ff6f00;
+  background: #ff6f00;
   color: #121212;
-  font-weight: 600;
   border: none;
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
   box-shadow: 0 0 10px #ff6f0055;
+  transition: all 0.3s;
 }
 
 .popup-buttons button:hover {
-  background-color: #ffa042;
+  background: #ffa042;
   box-shadow: 0 0 16px #ffa042aa;
 }
 
-/* === MOBILE RESPONSIVE === */
-@media (max-width: 568px) {
+/* === MEDIA QUERIES === */
+@media (max-width: 1024px) {
   .contact-page {
     flex-direction: column;
-    padding: 2rem 1rem;
-    gap: 3rem;
+    align-items: center;
+    padding: 2.5rem 1.5rem;
   }
 
   .contact-form-section,
   .contact-orbital-section {
-    padding: 0;
-    max-width: 100%;
     width: 100%;
+    max-width: 95%;
+    padding: 1rem;
   }
+}
 
-  .contact-form {
-    gap: 1.2rem;
-  }
-
-  .contact-form button {
-    width: 100%;
-  }
-
+@media (max-width: 600px) {
   .orbital-container {
-    width: 280px;
-    height: 280px;
-    margin: 60px auto 40px auto;
+    width: 260px;
+    height: 260px;
   }
 
   .orbital-node {
@@ -420,28 +317,338 @@
   }
 
   .rotating-cube-container {
-    width: 130px;
-    height: 130px;
-    margin: 1rem auto 0;
+    width: 120px;
+    height: 120px;
   }
 
   .rotating-face {
-    font-size: 0.85rem;
-    padding: 0.5rem;
-    text-align: center;
+    font-size: 0.8rem;
   }
 
-  .orbital-center-tex {
+  .success-popup,
+  .phone-popup {
     font-size: 0.85rem;
-    max-width: 160px;
-  }
-
-  .firebase-popup {
-    font-size: 0.9rem;
-    padding: 0.8rem;
   }
 
   .popup-buttons {
     flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-form-section h2 {
+    font-size: 2rem;
+  }
+}
+/* === ENHANCED RESPONSIVENESS MEDIA QUERIES === */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .contact-page {
+    padding: 3rem 3.5rem;
+    gap: 4rem;
+  }
+
+  .contact-form-section {
+    padding-left: 40px;
+    max-width: 500px;
+  }
+
+  .orbital-container {
+    width: 320px;
+    height: 320px;
+  }
+
+  .rotating-cube-container {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact-page {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2.5rem;
+    gap: 3rem;
+    justify-content: space-between;
+  }
+
+  .contact-form-section,
+  .contact-orbital-section {
+    flex: 1 1 45%;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .orbital-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbital-node {
+    width: 75px;
+    height: 75px;
+    font-size: 1.4rem;
+  }
+
+  .rotating-cube-container {
+    width: 130px;
+    height: 130px;
+  }
+
+  .rotating-face {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    flex-direction: column;
+    padding: 1.8rem 1.2rem;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .contact-form-section,
+  .contact-orbital-section {
+    max-width: 100%;
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .contact-form button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .orbital-container {
+    width: 250px;
+    height: 250px;
+    margin: 40px auto 30px auto;
+  }
+
+  .orbital-node {
+    width: 60px;
+    height: 60px;
+    font-size: 1.1rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.85rem;
+    max-width: 140px;
+  }
+
+  .rotating-cube-container {
+    width: 110px;
+    height: 110px;
+  }
+
+  .rotating-face {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .firebase-popup {
+    font-size: 0.85rem;
+    padding: 0.7rem;
+  }
+
+  .popup-buttons {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 1.4rem 1rem;
+    gap: 2rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .contact-form label {
+    font-size: 0.85rem;
+  }
+
+  .contact-form button {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .orbital-container {
+    width: 230px;
+    height: 230px;
+  }
+
+  .orbital-node {
+    width: 55px;
+    height: 55px;
+    font-size: 1rem;
+  }
+
+  .rotating-cube-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .rotating-face {
+    font-size: 0.7rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.75rem;
+    max-width: 120px;
+  }
+
+  .phone-popup {
+    width: 200px;
+    font-size: 0.85rem;
+    padding: 0.7rem;
+  }
+
+  .popup-buttons button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .orbital-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .orbital-node {
+    width: 50px;
+    height: 50px;
+    font-size: 0.9rem;
+  }
+
+  .rotating-cube-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  .rotating-face {
+    font-size: 0.65rem;
+    padding: 0.4rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.7rem;
+    max-width: 100px;
+  }
+
+  .success-popup {
+    font-size: 0.8rem;
+    padding: 0.6rem;
+  }
+}
+/* === FIXES & VISIBILITY FOR ORBITAL ON MOBILE === */
+@media (max-width: 768px) {
+  .contact-orbital-section {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .orbital-container {
+    display: flex !important;
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .rotating-cube-container {
+    display: block !important;
+    margin: 0 auto 1rem auto;
+    opacity: 1 !important;
+    transform: scale(1);
+  }
+
+  .rotating-face,
+  .orbital-node {
+    pointer-events: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-orbital-section {
+    margin-top: 2rem;
+    padding: 1.2rem 0;
+  }
+
+  .orbital-container {
+    width: 220px;
+    height: 220px;
+  }
+
+  .rotating-cube-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .rotating-face {
+    font-size: 0.75rem;
+  }
+
+  .orbital-node {
+    width: 60px;
+    height: 60px;
+    font-size: 1rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.8rem;
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 360px) {
+  .orbital-container {
+    width: 190px;
+    height: 190px;
+  }
+
+  .orbital-node {
+    width: 48px;
+    height: 48px;
+    font-size: 0.9rem;
+  }
+
+  .rotating-cube-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  .rotating-face {
+    font-size: 0.65rem;
+  }
+
+  .orbital-center-tex {
+    font-size: 0.7rem;
   }
 }

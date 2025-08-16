@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar.jsx";
-import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
 import "../css/contact.css";
 import { FaLinkedin, FaTwitter, FaPhone, FaEnvelope, FaGithub, FaFileAlt } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
@@ -39,12 +37,21 @@ export default function Contact() {
       return;
     }
     try {
-      await addDoc(collection(db, "contacts"), formData);
+      // Store contact message in localStorage instead of Firebase
+      const existingMessages = JSON.parse(localStorage.getItem("contactMessages") || "[]");
+      const newMessage = {
+        ...formData,
+        id: Date.now(),
+        timestamp: new Date().toISOString()
+      };
+      existingMessages.push(newMessage);
+      localStorage.setItem("contactMessages", JSON.stringify(existingMessages));
+      
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "Let's work together, Lalith!" });
       setTimeout(() => setSubmitted(false), 4000);
     } catch (error) {
-      console.error("Error saving message to Firebase:", error);
+      console.error("Error saving message:", error);
     }
   };
 
@@ -109,7 +116,7 @@ export default function Contact() {
 
             <button type="submit">Send Message</button>
             {submitted && (
-              <div className="firebase-popup">
+              <div className="success-popup">
                 ✅ Thank you! Appreciate your feedback.<br />
                 <p>Would you like to contact Lalith directly?</p>
                 <div className="redirect-options">

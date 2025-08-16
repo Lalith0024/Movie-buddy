@@ -4,10 +4,9 @@ import Favorites from "./pages/Favourites.jsx";
 import Home from "./pages/home.jsx";
 import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./contexts/MovieContext";
-import NavBar from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/components/navbar.jsx";
-import Contact from "./pages/contact";
-import Login from "./pages/Login";
-import Register from "/Users/kasulalalithendra/Desktop/react project/frontend project/src/pages/register.jsx"; // optional
+import Contact from "./pages/contact.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/register.jsx";
 import Navbar from "./components/navbar.jsx";
 
 function App() {
@@ -18,31 +17,15 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route
             path="/home"
-            element={
-              <>
-                {/* <NavBar /> */}
-                <Home />
-              </>
-            }
+            element={<Home />}
           />
           <Route
             path="/Favorites"
-            element={
-              <>
-                {/* <NavBar /> */}
-                <Navbar/>
-                <Favorites />
-              </>
-            }
+            element={<Favorites />}
           />
           <Route
             path="/contact"
-            element={
-              <>
-                {/* <NavBar /> */}
-                <Contact />
-              </>
-            }
+            element={<Contact />}
           />
           <Route path="/register" element={<Register />} />
         </Routes>
