@@ -7,7 +7,7 @@ import { MovieProvider } from "./contexts/MovieContext";
 import Contact from "./pages/contact.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/register.jsx";
-import Navbar from "./components/navbar.jsx";
+// import Navbar from "./components/navbar.jsx";
 
 function App() {
   return (
